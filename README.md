@@ -1,0 +1,2 @@
+# paimennus-lomaketaytto
+Kennelliiton paimennuslomakkeiden puoliautomaattinen täyttö
