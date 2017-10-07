@@ -6,6 +6,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 
+def resultRow(y):
+    return ([6.4, 8, 9.5, 11], y)
+
 placements = {}
 
 rowsep = 0.85
@@ -31,7 +34,7 @@ placements['PaimE'] = {
     'Omistaja': (c0, h4),
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 2.4),
-    'Tuomarin numero': (18, 2.4)
+    'Tuomarin numero': (18, 2.4),
     }
 
 rowsep = 0.85
@@ -57,7 +60,26 @@ placements['Paim1'] = {
     'Omistaja': (c0, h4),
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 3.5),
-    'Tuomarin numero': (18, 3.5)
+    'Tuomarin numero': (18, 3.5),
+    'hakki-ulos': resultRow(17.5),
+    'hakki-sisaan': resultRow(16.8),
+    'vartioiminen': resultRow(16),
+    'siirtymiset': resultRow(14.3),
+    'laidunnus': resultRow(13.6),
+    'kuljetus-3': resultRow(12.8),
+    'kaskyt': resultRow(11.1),
+    'tottelevaisuus': resultRow(10.4),
+    'aktiivisuus': resultRow(9.6),
+    'pisteet': ([0, 0, 9.5], 8.8),
+    'aika': ([16], 8.8),
+    'erinomainen': ([1.84], 7),
+    'erittain-hyva': ([7.25], 7),
+    'hyva': ([14.1], 7),
+    'koulutustunnus': ([1.84], 6.3),
+    'ei-tulosta': ([14.1], 6.3),
+    'keskeytettiin': ([1.8], 3.9),
+    'keskeytys-syy': ([10], 3.9),
+    'keskeytti': ([1.8], 3.2)
     }
 
 rowsep = 0.85
@@ -83,7 +105,30 @@ placements['Paim2'] = {
     'Omistaja': (c0, h4),
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 2.2),
-    'Tuomarin numero': (18, 2.2)
+    'Tuomarin numero': (18, 2.2),
+    'hakki-ulos': resultRow(19),
+    'hakki-sisaan': resultRow(18.2),
+    'vartioiminen': resultRow(17.5),
+    'kulkuvayla-1': resultRow(16.1),
+    'kulkuvayla-2': resultRow(15.3),
+    'kulkuvayla-3': resultRow(14.6),
+    'siirtymiset': resultRow(13.2),
+    'laidunnus': resultRow(12.4),
+    'kuljetus-3': resultRow(11.7),
+    'pysaytys-1': resultRow(10.4),
+    'kaskyt': resultRow(9),
+    'tottelevaisuus': resultRow(8.2),
+    'aktiivisuus': resultRow(7.4),
+    'pisteet': ([0, 0, 9.5], 6.7),
+    'aika': ([16], 6.7),
+    'erinomainen': ([1.84], 5.3),
+    'erittain-hyva': ([7.25], 5.3),
+    'hyva': ([14.2], 5.3),
+    'koulutustunnus': ([1.84], 4.6),
+    'ei-tulosta': ([14.2], 4.6),
+    'keskeytettiin': ([1.8], 3.9),
+    'keskeytys-syy': ([10], 3.9),
+    'keskeytti': ([1.8], 3.2)
     }
 
 rowsep = 0.8
@@ -127,6 +172,25 @@ def createForm(info):
             x, y = placements[luokka][k]
             text = info[k]
             c.drawString(x*cm, y*cm, text)
+    results = {}
+    try:
+        with open('tmp/%s' % (info['Rekisterinumero'].replace('/', '-'))) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                results[row[0]] = row[1:]
+    except IOError:
+        # maybe the file did not exist
+        pass
+
+    for k in results.keys():
+        if k in placements[luokka].keys():
+            xs, y = placements[luokka][k]
+            texts = results[k]
+            for x, text in zip(xs, texts):
+                if text.endswith('.0'):
+                    text = text[:-2]
+                c.drawString(x*cm, y*cm, text)
+
     c.save()
     packet.seek(0)
     new_pdf = PdfFileReader(packet)
