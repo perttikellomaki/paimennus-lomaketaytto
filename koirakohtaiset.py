@@ -35,6 +35,27 @@ placements['PaimE'] = {
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 2.4),
     'Tuomarin numero': (18, 2.4),
+    'kayttaytyminen-hyvaksytty':([7.05], 19.35),
+    'kayttaytyminen-hylatty':([9.65], 19.35),
+    'hakki-ulos': resultRow(17),
+    'hakki-sisaan': resultRow(16.2),
+    'siirtymiset': resultRow(14.5),
+    'laidunnus': resultRow(13),
+    'pysaytys-1': resultRow(11.4),
+    'kaskyt': resultRow(9.8),
+    'tottelevaisuus': resultRow(9),
+    'aktiivisuus': resultRow(8.2),
+    'pisteet': ([0, 0, 9.5], 7.4),
+    'aika': ([16], 7.4),
+    'erinomainen': ([1.84], 5.8),
+    'erittain-hyva': ([7.9], 5.8),
+    'hyva': ([14.6], 5.8),
+    'tyydyttava': ([1.84], 5),
+    'koulutustunnus': ([14.6], 5),
+    'ei-tulosta': ([7.9], 5),
+    'keskeytettiin': ([1.8], 4.2),
+    'keskeytys-syy': ([10], 4.2),
+    'keskeytti': ([1.8], 3.4)
     }
 
 rowsep = 0.85
@@ -75,11 +96,11 @@ placements['Paim1'] = {
     'erinomainen': ([1.84], 7),
     'erittain-hyva': ([7.25], 7),
     'hyva': ([14.1], 7),
-    'koulutustunnus': ([1.84], 6.3),
-    'ei-tulosta': ([14.1], 6.3),
-    'keskeytettiin': ([1.8], 3.9),
-    'keskeytys-syy': ([10], 3.9),
-    'keskeytti': ([1.8], 3.2)
+    'koulutustunnus': ([1.84], 6.2),
+    'ei-tulosta': ([14.2], 6.2),
+    'keskeytettiin': ([1.8], 5.5),
+    'keskeytys-syy': ([10], 5.5),
+    'keskeytti': ([1.8], 4.6)
     }
 
 rowsep = 0.85
@@ -154,7 +175,34 @@ placements['Paim3'] = {
     'Omistaja': (c0, h4),
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 2.1),
-    'Tuomarin numero': (18, 2.1)
+    'Tuomarin numero': (18, 2.1),
+    'hakki-ulos': resultRow(19.7),
+    'hakki-sisaan': resultRow(19),
+    'vartioiminen': resultRow(18.4),
+    'kulkuvayla-1': resultRow(17.1),
+    'kulkuvayla-2': resultRow(16.4),
+    'kulkuvayla-3': resultRow(15.7),
+    'kulkuvayla-4': resultRow(15.1),
+    'siirtymiset': resultRow(13.8),
+    'tie': resultRow(13.1),
+    'ajoneuvo': resultRow(12.5),
+    'laidunnus': resultRow(11.7),
+    'kuljetus-3': resultRow(11.7),
+    'pysaytys-1': resultRow(10.5),
+    'pysaytys-2': resultRow(9.9),
+    'kaskyt': resultRow(8.6),
+    'tottelevaisuus': resultRow(8),
+    'aktiivisuus': resultRow(7.3),
+    'pisteet': ([0, 0, 9.5], 6.6),
+    'aika': ([16], 6.6),
+    'erinomainen': ([1.84], 5.1),
+    'erittain-hyva': ([7.25], 5.1),
+    'hyva': ([14.2], 5.1),
+    'koulutustunnus': ([1.84], 4.4),
+    'ei-tulosta': ([14.2], 4.4),
+    'keskeytettiin': ([1.8], 3.8),
+    'keskeytys-syy': ([10], 3.8),
+    'keskeytti': ([1.8], 3)
     }
 
 def createForm(info):
@@ -226,5 +274,6 @@ with open('koirat.csv') as f:
 
 
 for dog in dogs:
+    print(dog['Rekisterinumero'])
     createForm(dog)
 print("Done")
