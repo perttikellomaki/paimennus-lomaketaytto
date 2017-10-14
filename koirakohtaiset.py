@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import csv
+import sys
 import StringIO
 from pyPdf import PdfFileWriter, PdfFileReader
 from reportlab.pdfgen import canvas
@@ -307,5 +308,9 @@ with open('koirat.csv') as f:
 
 for dog in dogs:
     print(dog['Rekisterinumero'])
-    createForm(dog)
+    if len(sys.argv) > 1:
+        if dog['Rekisterinumero'] == sys.argv[1]:
+            createForm(dog)
+    else:
+        createForm(dog)
 print("Done")
