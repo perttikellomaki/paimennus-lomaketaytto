@@ -118,6 +118,7 @@ h2 = h1-rowsep
 h3 = h2-rowsep
 h4 = h3-1.2
 h5 = h4-rowsep
+resultRow = genResultRow(default_height=0.8, y_offset=0.3)
 
 placements['Paim2'] = {
     'Paikka': (c0, h0),
@@ -134,19 +135,19 @@ placements['Paim2'] = {
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 2.2),
     'Tuomarin numero': (18, 2.2),
-    'hakki-ulos': resultRow(19),
-    'hakki-sisaan': resultRow(18.2),
+    'hakki-ulos': resultRow(19.05, height=1.3),
+    'hakki-sisaan': resultRow(18.25),
     'vartioiminen': resultRow(17.5),
-    'kulkuvayla-1': resultRow(16.1),
-    'kulkuvayla-2': resultRow(15.3),
+    'kulkuvayla-1': resultRow(16.15, height=1.3),
+    'kulkuvayla-2': resultRow(15.35),
     'kulkuvayla-3': resultRow(14.6),
-    'siirtymiset': resultRow(13.2),
-    'laidunnus': resultRow(12.4),
+    'siirtymiset': resultRow(13.25, height=1.3),
+    'laidunnus': resultRow(12.45),
     'kuljetus-3': resultRow(11.7),
-    'pysaytys-1': resultRow(10.4),
-    'kaskyt': resultRow(9),
-    'tottelevaisuus': resultRow(8.2),
-    'aktiivisuus': resultRow(7.4),
+    'pysaytys-1': resultRow(10.4, height=1.3),
+    'kaskyt': resultRow(9.05, height=1.3),
+    'tottelevaisuus': resultRow(8.25),
+    'aktiivisuus': resultRow(7.45),
     'pisteet': ([0, 0, 9.5], 6.7),
     'aika': ([16], 6.7),
     'erinomainen': ([1.84], 5.3),
@@ -268,7 +269,7 @@ def createForm(info):
                     text = text[:-2]
                 if isinstance(x, tuple):
                     xx, width, height, y_offset = x
-                    frame = Frame((xx - 0.3) * cm, (y - y_offset) * cm, width * cm, height * cm, showBoundary=1, leftPadding=0, rightPadding=0, topPadding=1, bottomPadding=1)
+                    frame = Frame((xx - 0.3) * cm, (y - y_offset) * cm, width * cm, height * cm, showBoundary=False, leftPadding=0, rightPadding=0, topPadding=1, bottomPadding=1)
 
                     fitInFrame(text, frame, c, width, height, 8)
                 else:
