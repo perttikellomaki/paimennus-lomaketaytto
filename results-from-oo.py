@@ -10,7 +10,7 @@ for sheet in doc.sheets:
             writer = csv.writer(f)
             row = 0
             while row < 200 and sheet[row, 1].value != 'eof':
-                print("ROW %s %s" % (row, sheet[row, 1].value))
                 if sheet[row, 1].value != '':
-                    writer.writerow([sheet[row, 1].value, sheet[row, 2].value, sheet[row, 3].value, sheet[row, 4].value, sheet[row, 5].value])
+                    writer.writerow([sheet[row, 1].value, sheet[row, 2].value, sheet[row, 3].value, sheet[row, 4].value, sheet[row, 5].value, sheet[row, 0].value])
                 row = row + 1
+print("Done")

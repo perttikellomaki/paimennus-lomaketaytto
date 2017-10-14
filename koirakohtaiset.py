@@ -10,8 +10,11 @@ from reportlab.lib.units import cm
 from reportlab.lib.styles import ParagraphStyle
 
 def genResultRow(default_height, y_offset):
-    def resultRow(y, height=default_height):
-        return ([6.4, 8, 9.5, (11.1, 9, height, y_offset)], y)
+    def resultRow(y, height=default_height, add_description=False):
+        xs = [6.4, 8, 9.5, (11.1, 9, height, y_offset)]
+        if add_description:
+            xs.append(2)
+        return (xs, y)
     return resultRow
 
 placements = {}
@@ -138,12 +141,12 @@ placements['Paim2'] = {
     'hakki-ulos': resultRow(19.05, height=1.3),
     'hakki-sisaan': resultRow(18.25),
     'vartioiminen': resultRow(17.5),
-    'kulkuvayla-1': resultRow(16.15, height=1.3),
-    'kulkuvayla-2': resultRow(15.35),
-    'kulkuvayla-3': resultRow(14.6),
+    'kulkuvayla-1': resultRow(16.15, height=1.3, add_description=True),
+    'kulkuvayla-2': resultRow(15.35, add_description=True),
+    'kulkuvayla-3': resultRow(14.6, add_description=True),
     'siirtymiset': resultRow(13.25, height=1.3),
     'laidunnus': resultRow(12.45),
-    'kuljetus-3': resultRow(11.7),
+    'kuljetus-3': resultRow(11.7, add_description=True),
     'pysaytys-1': resultRow(10.4, height=1.3),
     'kaskyt': resultRow(9.05, height=1.3),
     'tottelevaisuus': resultRow(8.25),
@@ -188,10 +191,10 @@ placements['Paim3'] = {
     'hakki-ulos': resultRow(19.7, height=1.2),
     'hakki-sisaan': resultRow(19),
     'vartioiminen': resultRow(18.35),
-    'kulkuvayla-1': resultRow(17.1, height=1.2),
-    'kulkuvayla-2': resultRow(16.4),
-    'kulkuvayla-3': resultRow(15.7),
-    'kulkuvayla-4': resultRow(15.1),
+    'kulkuvayla-1': resultRow(17.1, height=1.2, add_description=True),
+    'kulkuvayla-2': resultRow(16.4, add_description=True),
+    'kulkuvayla-3': resultRow(15.7, add_description=True),
+    'kulkuvayla-4': resultRow(15.1, add_description=True),
     'siirtymiset': resultRow(13.8, height=1.2),
     'tie': resultRow(13.1),
     'ajoneuvo': resultRow(12.45),
@@ -272,7 +275,7 @@ def createForm(info):
                     frame = Frame((xx - 0.3) * cm, (y - y_offset) * cm, width * cm, height * cm, showBoundary=False, leftPadding=0, rightPadding=0, topPadding=1, bottomPadding=1)
 
                     fitInFrame(text, frame, c, width, height, 8)
-                else:
+                elif x > 0:
                     c.drawString(x*cm, y*cm, text)
 
     c.save()
