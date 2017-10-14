@@ -3,11 +3,15 @@ import csv
 import StringIO
 from pyPdf import PdfFileWriter, PdfFileReader
 from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph, Frame, KeepInFrame
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
+from reportlab.lib.styles import ParagraphStyle
 
-def resultRow(y):
-    return ([6.4, 8, 9.5, 11], y)
+
+def resultRow(y, height=0.8):
+    return ([6.4, 8, 9.5, (11.1, 9, height)], y)
+
 
 placements = {}
 
@@ -37,12 +41,12 @@ placements['PaimE'] = {
     'Tuomarin numero': (18, 2.4),
     'kayttaytyminen-hyvaksytty':([7.05], 19.35),
     'kayttaytyminen-hylatty':([9.65], 19.35),
-    'hakki-ulos': resultRow(17),
+    'hakki-ulos': resultRow(17, height=1.6),
     'hakki-sisaan': resultRow(16.2),
-    'siirtymiset': resultRow(14.5),
-    'laidunnus': resultRow(13),
-    'pysaytys-1': resultRow(11.4),
-    'kaskyt': resultRow(9.8),
+    'siirtymiset': resultRow(14.6, height=1.6),
+    'laidunnus': resultRow(13, height=1.6),
+    'pysaytys-1': resultRow(11.4, height=1.6),
+    'kaskyt': resultRow(9.8, height=1.6),
     'tottelevaisuus': resultRow(9),
     'aktiivisuus': resultRow(8.2),
     'pisteet': ([0, 0, 9.5], 7.4),
@@ -205,6 +209,28 @@ placements['Paim3'] = {
     'keskeytti': ([1.8], 3)
     }
 
+
+def fitInFrame(text, frame, canvas, width, height, fontSize):
+    print "fitInFrame %s" % fontSize
+    try:
+        style = ParagraphStyle(
+            name='Normal',
+            fontName='Helvetica',
+            fontSize=fontSize,
+            leading=fontSize,
+            spaceAfter=0,
+            wordWrap=True,
+        )
+
+        p = Paragraph(text, style)
+        para = [p]
+        para_in_frame = KeepInFrame(width * cm, height * cm, para, mode='error')
+        frame.addFromList([para_in_frame], canvas)
+        return para_in_frame
+    except Exception as e:
+        return fitInFrame(text, frame, canvas, width, height, fontSize - 1)
+
+
 def createForm(info):
     forms = {
         'PaimE': 'paim_esikoe2017_t_0.pdf',
@@ -237,7 +263,13 @@ def createForm(info):
             for x, text in zip(xs, texts):
                 if text.endswith('.0'):
                     text = text[:-2]
-                c.drawString(x*cm, y*cm, text)
+                if isinstance(x, tuple):
+                    xx, width, height = x
+                    frame = Frame((xx - 0.3) * cm, (y - 0.3) * cm, width * cm, height * cm, showBoundary=1, leftPadding=0, rightPadding=0, topPadding=1, bottomPadding=1)
+
+                    fitInFrame(text, frame, c, width, height, 8)
+                else:
+                    c.drawString(x*cm, y*cm, text)
 
     c.save()
     packet.seek(0)
