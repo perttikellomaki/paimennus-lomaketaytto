@@ -9,10 +9,10 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.lib.styles import ParagraphStyle
 
-
-def resultRow(y, height=0.8):
-    return ([6.4, 8, 9.5, (11.1, 9, height)], y)
-
+def genResultRow(default_height, y_offset):
+    def resultRow(y, height=default_height):
+        return ([6.4, 8, 9.5, (11.1, 9, height, y_offset)], y)
+    return resultRow
 
 placements = {}
 
@@ -24,6 +24,7 @@ h2 = h1-rowsep
 h3 = h2-rowsep
 h4 = h3-1.3
 h5 = h4-rowsep
+resultRow = genResultRow(default_height=0.8, y_offset=0.3)
 
 placements['PaimE'] = {
     'Paikka': (c0, h0),
@@ -165,6 +166,7 @@ h2 = h1-rowsep
 h3 = h2-rowsep
 h4 = h3-1
 h5 = h4-rowsep
+resultRow = genResultRow(default_height=0.65, y_offset=0.2)
 
 placements['Paim3'] = {
     'Paikka': (c0, h0),
@@ -181,21 +183,21 @@ placements['Paim3'] = {
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 2.1),
     'Tuomarin numero': (18, 2.1),
-    'hakki-ulos': resultRow(19.7),
+    'hakki-ulos': resultRow(19.7, height=1.2),
     'hakki-sisaan': resultRow(19),
-    'vartioiminen': resultRow(18.4),
-    'kulkuvayla-1': resultRow(17.1),
+    'vartioiminen': resultRow(18.35),
+    'kulkuvayla-1': resultRow(17.1, height=1.2),
     'kulkuvayla-2': resultRow(16.4),
     'kulkuvayla-3': resultRow(15.7),
     'kulkuvayla-4': resultRow(15.1),
-    'siirtymiset': resultRow(13.8),
+    'siirtymiset': resultRow(13.8, height=1.2),
     'tie': resultRow(13.1),
-    'ajoneuvo': resultRow(12.5),
+    'ajoneuvo': resultRow(12.45),
     'laidunnus': resultRow(11.7),
     'kuljetus-3': resultRow(11.7),
-    'pysaytys-1': resultRow(10.5),
+    'pysaytys-1': resultRow(10.5, height=1.2),
     'pysaytys-2': resultRow(9.9),
-    'kaskyt': resultRow(8.6),
+    'kaskyt': resultRow(8.6, height=1.2),
     'tottelevaisuus': resultRow(8),
     'aktiivisuus': resultRow(7.3),
     'pisteet': ([0, 0, 9.5], 6.6),
@@ -212,7 +214,6 @@ placements['Paim3'] = {
 
 
 def fitInFrame(text, frame, canvas, width, height, fontSize):
-    print "fitInFrame %s" % fontSize
     try:
         style = ParagraphStyle(
             name='Normal',
@@ -265,8 +266,8 @@ def createForm(info):
                 if text.endswith('.0'):
                     text = text[:-2]
                 if isinstance(x, tuple):
-                    xx, width, height = x
-                    frame = Frame((xx - 0.3) * cm, (y - 0.3) * cm, width * cm, height * cm, showBoundary=1, leftPadding=0, rightPadding=0, topPadding=1, bottomPadding=1)
+                    xx, width, height, y_offset = x
+                    frame = Frame((xx - 0.3) * cm, (y - y_offset) * cm, width * cm, height * cm, showBoundary=1, leftPadding=0, rightPadding=0, topPadding=1, bottomPadding=1)
 
                     fitInFrame(text, frame, c, width, height, 8)
                 else:
