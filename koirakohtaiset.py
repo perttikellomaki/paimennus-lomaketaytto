@@ -72,6 +72,7 @@ h2 = h1-rowsep
 h3 = h2-rowsep
 h4 = h3-1.3
 h5 = h4-rowsep
+resultRow = genResultRow(default_height=0.8, y_offset=0.3)
 
 placements['Paim1'] = {
     'Paikka': (c0, h0),
@@ -88,13 +89,13 @@ placements['Paim1'] = {
     'Ohjaaja': (c0, h5),
     'Tuomari': (11, 3.5),
     'Tuomarin numero': (18, 3.5),
-    'hakki-ulos': resultRow(17.5),
+    'hakki-ulos': resultRow(17.5, height=1.6),
     'hakki-sisaan': resultRow(16.8),
     'vartioiminen': resultRow(16),
-    'siirtymiset': resultRow(14.3),
+    'siirtymiset': resultRow(14.3, height=1.6),
     'laidunnus': resultRow(13.6),
     'kuljetus-3': resultRow(12.8),
-    'kaskyt': resultRow(11.1),
+    'kaskyt': resultRow(11.1, height=1.6),
     'tottelevaisuus': resultRow(10.4),
     'aktiivisuus': resultRow(9.6),
     'pisteet': ([0, 0, 9.5], 8.8),
