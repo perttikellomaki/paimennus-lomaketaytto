@@ -27,3 +27,13 @@ Prosessi:
 
 3. Aja komento ./koirakohtaiset.py joka luo esitäytetyt koirakohtaiset
    lomakkeet hakemistoon esitaytetyt.
+
+4. Aja komento ./koepoytakirjat.py joka luo esitäytetyt koepöytäkirjat
+   erikseen PAIM-E:lle ja PAIM-123:lle.
+
+5. Tee hakemisto lopulliset, jonne talletetaan lopulliset täytetyt lomakkeet.
+
+6. Kokeen aikana avaa koirakohtainen esitäytetty lomake, täytä pisteet siihen,
+   ja talleta kopio siitä hakemistoon lopulliset.
+
+7. Kokeen jälkeen täytä koontipöytäkirjat.
