@@ -25,7 +25,7 @@ h4 = h3-rowsep
 h5 = h4-rowsep
 
 placements['PAIM-E'] = {
-    'Koiran kutsumanimi': (2, 29),
+    'Koiran kutsumanimi': (4, 28),
     'Rotu': (c0, h1),
     'Rotukoodi': (11, h1),
     'Koiran virallinen nimi': (c0, h0),
